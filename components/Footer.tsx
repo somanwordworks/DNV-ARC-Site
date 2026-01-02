@@ -14,8 +14,7 @@ export default function Footer() {
                     </div>
 
                     <p className="text-slate-600 text-sm max-w-md">
-                        A group company connecting <strong>Data Rhino</strong>, <strong>CINEQ</strong>,
-                        and <strong>Rhino Academy</strong>.
+                        A group company connecting purpose-built SaaS products across analytics, media, and education.
                     </p>
                 </div>
 
@@ -24,7 +23,11 @@ export default function Footer() {
                     <div>
                         <h5 className="font-semibold mb-2 text-slate-900">Brands</h5>
                         <ul className="space-y-2 text-sm">
-                            <li><a href="https://cineq.in/" target="_blank" className="hover:underline text-slate-700">CINEQ</a></li>
+                            <li>
+                                <a href="https://cineq.in/" target="_blank" className="hover:underline text-slate-700">
+                                    CINEQ
+                                </a>
+                            </li>
                             <li><a href="#" target="_blank" className="hover:underline text-slate-700">Data Rhino</a></li>
                             <li><a href="#" target="_blank" className="hover:underline text-slate-700">Noteek</a></li>
                             <li><a href="#" target="_blank" className="hover:underline text-slate-700">Conteak</a></li>
@@ -35,9 +38,26 @@ export default function Footer() {
                     <div>
                         <h5 className="font-semibold mb-2 text-slate-900">Connect</h5>
                         <ul className="space-y-2 text-sm">
-                            <li><a href="mailto:contact@dnvarc.com" className="hover:underline text-slate-700">
-                                contact@dnvarc.com
-                            </a></li>
+                            <li>
+                                <a
+                                    href="mailto:contact@dnvarc.com"
+                                    className="hover:underline text-slate-700"
+                                >
+                                    contact@dnvarc.com
+                                </a>
+                            </li>
+
+                            {/* WhatsApp */}
+                            <li>
+                                <a
+                                    href="https://wa.me/919642226262"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="hover:underline text-slate-700"
+                                >
+                                    WhatsApp: 9642226262
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>

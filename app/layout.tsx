@@ -2,9 +2,16 @@ import "./../styles/globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Poppins } from "next/font/google";
+import dynamic from "next/dynamic";
 
 /* 🔹 Scroll Reveal (client-only, safe global mount) */
 import ScrollReveal from "@/components/ScrollReveal";
+
+/* 🔹 Floating WhatsApp Button (client-only, no SSR) */
+const WhatsAppFloat = dynamic(
+    () => import("@/components/WhatsAppFloat"),
+    { ssr: false }
+);
 
 const inter = Inter({ subsets: ["latin"] });
 const poppins = Poppins({
@@ -31,6 +38,9 @@ export default function RootLayout({
                 <ScrollReveal />
 
                 {children}
+
+                {/* Floating WhatsApp contact button */}
+                <WhatsAppFloat />
             </body>
         </html>
     );

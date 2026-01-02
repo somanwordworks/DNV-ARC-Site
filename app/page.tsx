@@ -3,6 +3,9 @@ import Footer from "@/components/Footer";
 import BrandCard from "@/components/BrandCard";
 import { BRANDS } from "@/data/brands";
 
+/* 🔹 Clientele Vertical Flip */
+import ClienteleFlip from "@/components/ClienteleFlip";
+
 export default function Page() {
     return (
         <main className="min-h-screen">
@@ -65,11 +68,13 @@ export default function Page() {
                 </div>
             </section>
 
+            {/* Clientele (Vertical Flip Logos) */}
+            <ClienteleFlip />
+
             {/* About */}
             <section id="about" className="py-16 md:py-20 bg-tribe-light">
                 <div className="container-custom grid md:grid-cols-2 gap-10 items-center">
 
-                    {/* 👇 THIS IS REQUIRED */}
                     <div className="reveal-on-scroll">
                         <h2 className="text-2xl md:text-3xl font-semibold mb-3">
                             About DNV ARC
@@ -97,7 +102,6 @@ export default function Page() {
 
                 </div>
             </section>
-
 
             {/* Ecosystem */}
             <section id="ecosystem" className="py-16 md:py-20">

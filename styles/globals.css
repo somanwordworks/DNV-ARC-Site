@@ -1,4 +1,4 @@
-@tailwind base;
+﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -18,7 +18,7 @@ html, body {
     @apply max-w-6xl mx-auto px-4;
 }
 
-/* UPDATED � Transparent bottom so arcs show */
+/* UPDATED – Transparent bottom so arcs show */
 .hero-gradient {
     background: linear-gradient( 180deg, #0B2850 0%, rgba(27, 75, 142, 0.6) 40%, rgba(27, 75, 142, 0.25) 70%, rgba(27, 75, 142, 0.0) 100% );
 }
@@ -156,3 +156,92 @@ html, body {
         opacity: 1;
         transform: translateY(0);
     }
+/* === Floating WhatsApp Button === */
+.whatsapp-float {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9999;
+    border-radius: 50%;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .whatsapp-float:hover {
+        transform: translateY(-4px) scale(1.05);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+    }
+
+
+
+/* === Clientele Vertical Flip (Robust Logo Fit) === */
+
+.clientele-flip-wrapper {
+    height: 96px; /* more breathing room */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.clientele-flip {
+    position: relative;
+    height: 96px;
+    width: 280px; /* slightly wider for stacked logos */
+}
+
+.clientele-flip-item {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    animation: clienteleFlip 12s infinite;
+}
+
+/* 🔑 STANDARDIZED LOGO CONTAINER */
+.clientele-logo-box {
+    width: 240px;
+    height: 72px;
+    padding: 6px 10px; /* critical for tall logos */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 🔑 LOGO ITSELF */
+.clientele-logo-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* NEVER cover */
+    opacity: 1;
+    filter: none; /* preserve brand colors */
+}
+
+@keyframes clienteleFlip {
+    0% {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+
+    10% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    30% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    40% {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
