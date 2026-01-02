@@ -1,7 +1,8 @@
 // app/services/page.tsx
 import React from "react";
+import Footer from "@/components/Footer";
 
-/* ---------------- HEADER MINIMAL (Home Only) ---------------- */
+/* ---------------- HEADER MINIMAL (Services Only) ---------------- */
 function HeaderMinimal() {
     return (
         <header className="w-full bg-white/95 backdrop-blur-sm shadow-sm">
@@ -28,7 +29,7 @@ function HeaderMinimal() {
     );
 }
 
-/* ---------------- REST OF ORIGINAL WORKING CODE ---------------- */
+/* ---------------- SERVICES DATA ---------------- */
 const services = [
     {
         title: "AI, Data & Cloud Engineering",
@@ -68,6 +69,7 @@ const services = [
     }
 ];
 
+/* ---------------- ICONS ---------------- */
 function Icon({ name }: { name: string }) {
     switch (name) {
         case "cloud":
@@ -113,6 +115,7 @@ function Icon({ name }: { name: string }) {
     }
 }
 
+/* ---------------- SERVICE CARD ---------------- */
 function ServiceCard({ title, subtitle, desc, icon }: any) {
     return (
         <article className="group bg-white rounded-xl2 p-6 shadow-soft border border-transparent hover:shadow-lg transition-all duration-200">
@@ -136,33 +139,46 @@ function ServiceCard({ title, subtitle, desc, icon }: any) {
     );
 }
 
+/* ---------------- PAGE ---------------- */
 export default function ServicesPage() {
     return (
         <>
-            {/* ⭐ Added HeaderMinimal */}
             <HeaderMinimal />
 
             <main className="min-h-screen bg-white">
 
-                {/* Hero */}
-                <section className="container-custom py-20 text-center">
-                    <div className="max-w-3xl mx-auto">
-                        <h1 className="text-3xl md:text-4xl font-extrabold text-tribe-dark">Services</h1>
-                        <p className="mt-4 text-slate-600 text-lg">
-                            Engineering intelligence and building modern digital products — from data platforms and LLMs to
-                            courses, books and production-ready websites.
-                        </p>
+                {/* Hero (🎨 doodle background applied here only) */}
+                <section className="services-hero py-20">
+                    <div className="container-custom text-center">
+                        <div className="max-w-3xl mx-auto">
+                            <h1 className="text-3xl md:text-4xl font-extrabold text-tribe-dark">
+                                Services
+                            </h1>
 
-                        <div className="mt-6 flex justify-center gap-4">
-                            <a href="#contact" className="btn btn-outline border-tribe-blue text-tribe-blue hover:bg-tribe-blue hover:text-white">
-                                Contact Us
-                            </a>
-                            <a href="#services-grid" className="btn btn-ghost text-slate-700 border border-slate-200">
-                                Explore Services
-                            </a>
+                            <p className="mt-4 text-slate-600 text-lg">
+                                Engineering intelligence and building modern digital products — from data platforms and LLMs to
+                                courses, books and production-ready websites.
+                            </p>
+
+                            <div className="mt-6 flex justify-center gap-4">
+                                <a
+                                    href="#contact"
+                                    className="btn btn-outline border-tribe-blue text-tribe-blue hover:bg-tribe-blue hover:text-white"
+                                >
+                                    Contact Us
+                                </a>
+
+                                <a
+                                    href="#services-grid"
+                                    className="btn btn-ghost text-slate-700 border border-slate-200"
+                                >
+                                    Explore Services
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </section>
+
 
                 {/* Services Grid */}
                 <section id="services-grid" className="container-custom pb-20">
@@ -175,90 +191,23 @@ export default function ServicesPage() {
                     {/* Why Choose Us */}
                     <div className="mt-12 grid md:grid-cols-3 gap-6 items-start">
                         <div className="md:col-span-2">
-                            <h2 className="text-2xl font-semibold text-tribe-dark">Why DNV ARC</h2>
+                            <h2 className="text-2xl font-semibold text-tribe-dark">
+                                Why DNV ARC
+                            </h2>
+
                             <p className="mt-3 text-slate-600">
                                 We combine deep technical experience in data & AI with a product-first delivery mindset.
                                 Our services are designed for teams who want practical, production-ready systems — backed by
                                 careful governance, observability and cost-aware architecture.
                             </p>
-
-                            <ul className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                <li className="flex items-start gap-3">
-                                    <span className="mt-1 text-tribe-blue">•</span>
-                                    <div>
-                                        <div className="font-medium text-slate-800">Practical Delivery</div>
-                                        <div className="text-sm text-slate-600">Concrete outcomes: infra, APIs, dashboards and models.</div>
-                                    </div>
-                                </li>
-                                <li className="flex items-start gap-3">
-                                    <span className="mt-1 text-tribe-blue">•</span>
-                                    <div>
-                                        <div className="font-medium text-slate-800">Domain Expertise</div>
-                                        <div className="text-sm text-slate-600">Data engineering, LLMs, and cloud-native architecture.</div>
-                                    </div>
-                                </li>
-                                <li className="flex items-start gap-3">
-                                    <span className="mt-1 text-tribe-blue">•</span>
-                                    <div>
-                                        <div className="font-medium text-slate-800">Thought Leadership</div>
-                                        <div className="text-sm text-slate-600">Books, courses and whitepapers to scale internal knowledge.</div>
-                                    </div>
-                                </li>
-                                <li className="flex items-start gap-3">
-                                    <span className="mt-1 text-tribe-blue">•</span>
-                                    <div>
-                                        <div className="font-medium text-slate-800">Fast Iteration</div>
-                                        <div className="text-sm text-slate-600">MVP-first approach with clear milestones and demos.</div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <aside className="bg-white p-6 rounded-xl2 shadow-soft border border-transparent">
-                            <h3 className="text-lg font-semibold text-tribe-dark">Work with us</h3>
-                            <p className="mt-2 text-slate-600 text-sm">
-                                Share a short brief and we'll get back with a tailored proposal.
-                            </p>
-                            <a href="#contact" className="mt-4 inline-block btn btn-outline border-tribe-blue text-tribe-blue hover:bg-tribe-blue hover:text-white">
-                                Start a Conversation
-                            </a>
-                            <dl className="mt-6 text-sm text-slate-600">
-                                <dt className="font-medium text-slate-800">Typical engagement</dt>
-                                <dd>4–12 weeks for MVP / architecture + POC work.</dd>
-                                <dt className="font-medium text-slate-800 mt-3">Deliverables</dt>
-                                <dd>Architecture docs, POC, deployment plan, service-level roadmap.</dd>
-                            </dl>
-                        </aside>
-                    </div>
-                </section>
-
-                {/* CTA */}
-                <section id="contact" className="bg-tribe-light py-12">
-                    <div className="container-custom flex flex-col md:flex-row items-center justify-between gap-4">
-                        <div>
-                            <h4 className="text-xl font-semibold text-tribe-dark">Ready to build with DNV ARC?</h4>
-                            <p className="mt-2 text-slate-600 text-sm">
-                                Send a brief to{" "}
-                                <a
-                                    href="mailto:contact@rhinotribe.in"
-                                    className="text-tribe-blue font-medium"
-                                >
-                                    contact@rhinotribe.in
-                                </a>
-                            </p>
-                        </div>
-                        <div>
-                            <a
-                                href="mailto:contact@rhinotribe.in"
-                                className="btn btn-primary bg-tribe-blue text-white px-6 py-2 rounded-lg"
-                            >
-                                Contact Us
-                            </a>
                         </div>
                     </div>
                 </section>
 
             </main>
+
+            {/* ✅ Global Footer */}
+            <Footer />
         </>
     );
 }

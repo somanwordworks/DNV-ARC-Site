@@ -245,3 +245,27 @@ html, body {
     }
 }
 
+/* === Services Hero Single Doodle Background === */
+.services-hero {
+    position: relative;
+    overflow: hidden;
+    background-color: #ffffff;
+}
+
+    .services-hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url("/backgrounds/services-doodle.png");
+        background-repeat: no-repeat; /* 🔑 stop tiling */
+        background-position: center; /* 🔑 center image */
+        background-size: 1100px; /* 🔑 single large doodle */
+        opacity: 0.12; /* dull effect */
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .services-hero > * {
+        position: relative;
+        z-index: 1;
+    }
