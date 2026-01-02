@@ -1,0 +1,158 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --bg: #ffffff;
+    --fg: #0f172a;
+}
+
+html, body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--fg);
+    scroll-behavior: smooth;
+}
+
+.container-custom {
+    @apply max-w-6xl mx-auto px-4;
+}
+
+/* UPDATED – Transparent bottom so arcs show */
+.hero-gradient {
+    background: linear-gradient( 180deg, #0B2850 0%, rgba(27, 75, 142, 0.6) 40%, rgba(27, 75, 142, 0.25) 70%, rgba(27, 75, 142, 0.0) 100% );
+}
+
+.watermark {
+    position: absolute;
+    inset: 0;
+    background-image: url('/rhino-watermark.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 700px auto;
+    opacity: 0.08;
+    pointer-events: none;
+}
+
+.btn {
+    @apply inline-flex items-center justify-center rounded-lg px-5 py-3 font-medium shadow-soft hover:scale-[1.02] active:scale-[0.98] transition-transform;
+}
+
+.btn-primary {
+    @apply bg-tribe-blue text-white;
+}
+
+.btn-outline {
+    @apply border border-tribe-blue text-tribe-blue bg-white;
+}
+
+/* --- Premium Background Additions --- */
+
+.hero-noise::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url('/noise.png');
+    opacity: 0.15;
+    mix-blend-mode: soft-light;
+    pointer-events: none;
+}
+
+/* Floating glow orbs */
+.hero-orb {
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    background: radial-gradient(circle, rgba(255,255,255,0.12), transparent 70%);
+    border-radius: 9999px;
+    filter: blur(80px);
+    animation: float 7s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+    .hero-orb.orb-1 {
+        top: 10%;
+        left: 10%;
+    }
+
+    .hero-orb.orb-2 {
+        bottom: 5%;
+        right: 12%;
+        animation-delay: 2s;
+    }
+
+@keyframes float {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-35px);
+    }
+}
+
+/* Fade and slide animations */
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slide-up {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fade-in 1s ease-out both;
+}
+
+.animate-slide-up {
+    animation: slide-up 1s ease-out both;
+}
+
+/* --- Animated Arc Pulse --- */
+@keyframes arcPulse {
+    0% {
+        transform: scale(1) translateY(0);
+        opacity: 0.4;
+    }
+
+    50% {
+        transform: scale(1.05) translateY(-6px);
+        opacity: 0.9;
+    }
+
+    100% {
+        transform: scale(1) translateY(0);
+        opacity: 0.4;
+    }
+}
+
+.arc-animate {
+    animation: arcPulse 6s ease-in-out infinite;
+}
+
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+
+    .reveal-on-scroll.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
