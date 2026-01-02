@@ -7,7 +7,7 @@ export default function Footer() {
                 <div>
                     <div className="flex items-center gap-3 mb-3">
                         <img
-                            src="/logos/DNV-Arc.png"
+                            src="/logos/logo-footer.png"
                             className="h-12 object-contain"
                             alt="DNV ARC"
                         />
