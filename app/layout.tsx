@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Poppins } from "next/font/google";
 import dynamic from "next/dynamic";
+import Script from "next/script";
 
 /* 🔹 Scroll Reveal (client-only, safe global mount) */
 import ScrollReveal from "@/components/ScrollReveal";
@@ -33,6 +34,24 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en">
+            <head>
+                {/* ✅ Google Analytics (GA4) */}
+                <Script
+                    src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+                    strategy="afterInteractive"
+                />
+                <Script id="ga-init" strategy="afterInteractive">
+                    {`
+                        window.dataLayer = window.dataLayer || [];
+                        function gtag(){dataLayer.push(arguments);}
+                        gtag('js', new Date());
+                        gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', {
+                            page_path: window.location.pathname,
+                        });
+                    `}
+                </Script>
+            </head>
+
             <body className={inter.className + " bg-white text-slate-900"}>
                 {/* Global scroll-based reveal animation */}
                 <ScrollReveal />
