@@ -10,7 +10,7 @@ export const BRANDS = [
     {
         key: "datarhino",
         title: "DATA RHINO",
-        href: "https://www.datarhino.com/",
+        href: "https://www.datarhino.in/",
         logo: "/logos/data-rhino.png",
         description: "Tech news, cloud analytics, and AI-driven insights.",
         accentClass: "bg-datarhino-primary"
