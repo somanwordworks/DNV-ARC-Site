@@ -39,5 +39,6 @@ export const BRANDS = [
         description: "Dunly helps you track income, expenses, and savings in one simple place.",
         accentClass: "bg-academy-primary"
     },
+    
   
 ] as const;

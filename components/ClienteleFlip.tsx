@@ -3,6 +3,7 @@ export default function ClienteleFlip() {
         "/clients/client-1.png",
         "/clients/client-2.png",
         "/clients/client-3.png",
+        "/clients/client-4.png",
         
     ];
 
