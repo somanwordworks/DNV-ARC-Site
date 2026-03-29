@@ -1,189 +1,262 @@
-// app/services/page.tsx
-import React from "react";
-import Footer from "@/components/Footer";
 import HeaderMinimal from "@/components/HeaderMinimal";
+import Footer from "@/components/Footer";
+import Link from "next/link";
 
-
-
-/* ---------------- SERVICES DATA ---------------- */
-const services = [
-    {
-        title: "AI, Data & Cloud Engineering",
-        subtitle: "Architecture, pipelines, LLMs & MLOps",
-        desc: "End-to-end data & AI systems: lakehouses, ETL/ELT pipelines, Databricks/ Spark, LLM/RAG solutions, model fine-tuning, inference scaling and governance.",
-        icon: "cloud"
-    },
-    {
-        title: "Technical Book Writing",
-        subtitle: "Authoring & Ghostwriting",
-        desc: "Technical books, playbooks, whitepapers and leader-level thought pieces — written with hands-on examples, diagrams and production-ready guidance.",
-        icon: "book"
-    },
-    {
-        title: "Website & Product Development",
-        subtitle: "Next.js, React, Tailwind",
-        desc: "Modern, responsive websites and full-stack digital products: Next.js (App Router), API-driven pages, Vercel deployments and performance tuning.",
-        icon: "code"
-    },
-    {
-        title: "eLearning & Curriculum",
-        subtitle: "Courses, labs & assessments",
-        desc: "Course design for Data/AI learners: lesson plans, hands-on labs, assessments and LMS packaging for corporate or public training.",
-        icon: "cap"
-    },
-    {
-        title: "Product Development (MVPs)",
-        subtitle: "From idea to production",
-        desc: "MVP architecture, hosting, integrations and CI/CD. Focus on fast delivery, testable APIs, observability and predictable scale.",
-        icon: "rocket"
-    },
-    {
-        title: "Ghostwriting & Editing",
-        subtitle: "Executive content & technical editing",
-        desc: "Ghostwriting for founders/executives, editorial polishing, technical accuracy reviews and converting notes into publish-ready manuscripts.",
-        icon: "pencil"
-    }
+const SERVICES = [
+  {
+    title: "AI, Data & Cloud Engineering",
+    subtitle: "Architecture · Pipelines · LLMs · MLOps",
+    desc: "End-to-end data & AI systems built for production. Lakehouses, ETL/ELT pipelines, Databricks/Spark, LLM/RAG solutions, model fine-tuning, inference scaling, and governance — from architecture to deployment.",
+    points: ["Data lakehouse & warehouse design", "ETL/ELT pipeline engineering", "LLM & RAG implementations", "MLOps & model governance", "Cloud cost optimisation"],
+    icon: "cloud",
+    color: "#E8F4FD",
+    stroke: "#2E9EE8",
+    tag: "Data & AI",
+  },
+  {
+    title: "Website & Product Development",
+    subtitle: "Next.js · React · Tailwind · Vercel",
+    desc: "Modern, performant websites and full-stack digital products. We build exactly the kind of products we ship ourselves — fast, responsive, and production-grade from day one.",
+    points: ["Next.js App Router websites", "Full-stack SaaS products", "API design & integration", "Vercel / cloud deployment", "Performance & SEO tuning"],
+    icon: "code",
+    color: "#E0F7F4",
+    stroke: "#0D9488",
+    tag: "Engineering",
+  },
+  {
+    title: "Product Development (MVPs)",
+    subtitle: "Idea → Live product · Fast & focused",
+    desc: "From concept to a live, testable product in weeks — not months. We handle architecture, hosting, integrations, and CI/CD so you can focus on validating your idea with real users.",
+    points: ["MVP scoping & architecture", "Rapid full-stack build", "CI/CD & DevOps setup", "Third-party integrations", "Post-launch iteration support"],
+    icon: "rocket",
+    color: "#EDE9FE",
+    stroke: "#5B21B6",
+    tag: "MVP",
+  },
 ];
 
-/* ---------------- ICONS ---------------- */
-function Icon({ name }: { name: string }) {
-    switch (name) {
-        case "cloud":
-            return (
-                <svg width="36" height="36" viewBox="0 0 24 24" fill="none">
-                    <path d="M20 17.5A4.5 4.5 0 0 0 15.5 13H15a4 4 0 0 0-7.9.7A3.5 3.5 0 0 0 4 17.5C4 19.43 5.57 21 7.5 21h13C22 21 22 18 20 17.5z" stroke="currentColor" strokeWidth="1.4" />
-                </svg>
-            );
-        case "book":
-            return (
-                <svg width="36" height="36" viewBox="0 0 24 24" fill="none">
-                    <path d="M3 5.5A2.5 2.5 0 0 1 5.5 3H19" stroke="currentColor" strokeWidth="1.4" />
-                    <path d="M3 21V6.5A2.5 2.5 0 0 1 5.5 4H19V21H5.5A2.5 2.5 0 0 1 3 18.5" stroke="currentColor" strokeWidth="1.4" />
-                </svg>
-            );
-        case "code":
-            return (
-                <svg width="36" height="36" viewBox="0 0 24 24" fill="none">
-                    <path d="M16 18l6-6-6-6" stroke="currentColor" strokeWidth="1.6" />
-                    <path d="M8 6L2 12l6 6" stroke="currentColor" strokeWidth="1.6" />
-                </svg>
-            );
-        case "cap":
-            return (
-                <svg width="36" height="36" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 2l7 4v6c0 5-7 8-7 8s-7-3-7-8V6l7-4z" stroke="currentColor" strokeWidth="1.4" />
-                    <path d="M12 22v-9" stroke="currentColor" strokeWidth="1.4" />
-                </svg>
-            );
-        case "rocket":
-            return (
-                <svg width="36" height="36" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 2s3 1 5 3 3 5 3 5-2 1-4 1-4-1-4-1" stroke="currentColor" strokeWidth="1.4" />
-                    <path d="M9 11l-7 7v2h2l7-7" stroke="currentColor" strokeWidth="1.4" />
-                </svg>
-            );
-        default:
-            return (
-                <svg width="36" height="36" viewBox="0 0 24 24" fill="none">
-                    <path d="M3 21l3-1 11-11 1-3-3 1L4 20z" stroke="currentColor" strokeWidth="1.4" />
-                </svg>
-            );
-    }
+function ServiceIcon({ name, stroke }: { name: string; stroke: string }) {
+  const p = { width: 28, height: 28, viewBox: "0 0 24 24", fill: "none", stroke, strokeWidth: 1.6, strokeLinecap: "round" as const };
+  switch (name) {
+    case "cloud":  return <svg {...p}><path d="M20 17.5A4.5 4.5 0 0 0 15.5 13H15a4 4 0 0 0-7.9.7A3.5 3.5 0 0 0 4 17.5C4 19.43 5.57 21 7.5 21h13C22 21 22 18 20 17.5z"/></svg>;
+    case "code":   return <svg {...p}><path d="M16 18l6-6-6-6"/><path d="M8 6L2 12l6 6"/></svg>;
+    default:       return <svg {...p}><path d="M12 2s3 1 5 3 3 5 3 5-2 1-4 1-4-1-4-1"/><path d="M9 11l-7 7v2h2l7-7"/></svg>;
+  }
 }
 
-/* ---------------- SERVICE CARD ---------------- */
-function ServiceCard({ title, subtitle, desc, icon }: any) {
-    return (
-        <article className="group bg-white rounded-xl2 p-6 shadow-soft border border-transparent hover:shadow-lg transition-all duration-200">
-            <div className="flex items-start gap-4">
-                <div className="flex-none w-12 h-12 rounded-lg bg-gradient-to-br from-tribe-blue to-[#00C6A2] flex items-center justify-center">
-                    <Icon name={icon} />
-                </div>
-                <div className="flex-1">
-                    <h3 className="text-tribe-dark font-semibold text-lg">{title}</h3>
-                    <p className="text-sm text-slate-500 mt-1">{subtitle}</p>
-                </div>
-            </div>
-
-            <p className="mt-4 text-slate-600 text-sm leading-relaxed">{desc}</p>
-            <div className="mt-5">
-                <a href="#contact" className="inline-flex items-center gap-2 text-tribe-blue font-medium hover:underline">
-                    Learn more →
-                </a>
-            </div>
-        </article>
-    );
-}
-
-/* ---------------- PAGE ---------------- */
 export default function ServicesPage() {
-    return (
-        <>
-            <HeaderMinimal />
+  return (
+    <>
+      <HeaderMinimal />
+      <main className="min-h-screen bg-white">
 
-            <main className="min-h-screen bg-white">
+        {/* ── HERO ── */}
+        <section className="hero-gradient relative overflow-hidden py-24 md:py-32">
+          {/* Decorative bars */}
+          <div className="absolute right-0 top-0 bottom-0 flex items-center pr-16 pointer-events-none opacity-10">
+            <div className="flex flex-col gap-3">
+              {[100, 160, 120, 180, 90].map((w, i) => (
+                <div key={i} className="h-3 rounded bg-dnv-sky"
+                  style={{ width: w, clipPath: "polygon(6% 0%,100% 0%,94% 100%,0% 100%)" }} />
+              ))}
+            </div>
+          </div>
 
-                {/* Hero (🎨 doodle background applied here only) */}
-                <section className="services-hero py-20">
-                    <div className="container-custom text-center">
-                        <div className="max-w-3xl mx-auto">
-                            <h1 className="text-3xl md:text-4xl font-extrabold text-tribe-dark">
-                                Services
-                            </h1>
+          <div className="container-custom relative z-10 max-w-3xl">
+            <div className="inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase"
+              style={{ background: "rgba(46,158,232,0.15)", color: "#7EC8F5" }}>
+              <span className="w-1.5 h-1.5 rounded-full bg-dnv-sky" />
+              Services
+            </div>
 
-                            <p className="mt-4 text-slate-600 text-lg">
-                                Engineering intelligence and building modern digital products — from data platforms and LLMs to
-                                courses, books and production-ready websites.
-                            </p>
+            <h1 className="font-display font-bold text-white mb-5"
+              style={{ fontSize: "clamp(36px,5vw,64px)", letterSpacing: "-0.01em", lineHeight: 1.05 }}>
+              We build our own<br />
+              products.<br />
+              <span className="text-dnv-sky">We can build yours.</span>
+            </h1>
 
-                            <div className="mt-6 flex justify-center gap-4">
-                                <a
-                                    href="#contact"
-                                    className="btn btn-outline border-tribe-blue text-tribe-blue hover:bg-tribe-blue hover:text-white"
-                                >
-                                    Contact Us
-                                </a>
+            {/* Logo bar motif */}
+            <div className="flex gap-1.5 mb-6 opacity-50">
+              <div className="h-1 w-10 rounded bg-white" style={{ clipPath: "polygon(8% 0%,100% 0%,92% 100%,0% 100%)" }} />
+              <div className="h-1 w-16 rounded bg-dnv-sky" style={{ clipPath: "polygon(8% 0%,100% 0%,92% 100%,0% 100%)" }} />
+            </div>
 
-                                <a
-                                    href="#services-grid"
-                                    className="btn btn-ghost text-slate-700 border border-slate-200"
-                                >
-                                    Explore Services
-                                </a>
+            <p className="text-white/65 font-light text-lg max-w-xl leading-relaxed mb-10">
+              CINEQ, Dunly, Data Rhino — we ship real products on the same stack we offer clients.
+              No theory. Just proven engineering, delivered fast.
+            </p>
+
+            <div className="flex flex-wrap gap-3">
+              <a href="#services" className="btn btn-primary">See what we offer</a>
+              <Link href="/pricing" className="btn btn-ghost-white">View pricing</Link>
+            </div>
+          </div>
+        </section>
+
+        {/* ── PROOF STRIP ── */}
+        <div className="bg-dnv-navy py-6">
+          <div className="container-custom">
+            <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-4">
+              {[
+                { num: "5+", label: "Products in production" },
+                { num: "3",  label: "Industry verticals" },
+                { num: "₹9K", label: "Starting price" },
+                { num: "24hr", label: "Response time" },
+              ].map((s, i) => (
+                <div key={i} className="text-center px-4">
+                  <p className="font-display font-bold text-2xl text-white tracking-wide">
+                    {s.num}
+                  </p>
+                  <p className="text-xs text-white/40 mt-0.5">{s.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* ── SERVICES ── */}
+        <section id="services" className="py-20 md:py-28 bg-surface-off">
+          <div className="container-custom">
+
+            <div className="text-center max-w-xl mx-auto mb-16">
+              <div className="section-tag justify-center">What we offer</div>
+              <h2 className="section-title text-4xl md:text-5xl">Three things.<br />Done exceptionally.</h2>
+            </div>
+
+            <div className="flex flex-col gap-6">
+              {SERVICES.map((s, i) => (
+                <div key={s.title}
+                  className="bg-white rounded-card border border-[rgba(11,30,79,0.08)] overflow-hidden hover:shadow-lg transition-all duration-200 group">
+                  <div className="grid md:grid-cols-2 gap-0">
+
+                    {/* Left — info */}
+                    <div className="p-8 md:p-10 border-b md:border-b-0 md:border-r border-[rgba(11,30,79,0.07)]">
+                      <div className="flex items-center gap-3 mb-6">
+                        <div className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0"
+                          style={{ background: s.color }}>
+                          <ServiceIcon name={s.icon} stroke={s.stroke} />
+                        </div>
+                        <span className="text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full"
+                          style={{ background: s.color, color: s.stroke }}>
+                          {s.tag}
+                        </span>
+                      </div>
+
+                      <h3 className="font-display font-bold text-2xl text-dnv-navy tracking-wide mb-1">
+                        {s.title}
+                      </h3>
+                      <p className="text-xs text-ink-faint font-medium tracking-wide mb-4">{s.subtitle}</p>
+                      <p className="text-sm text-ink-muted font-light leading-relaxed">{s.desc}</p>
+
+                      <a href="#contact"
+                        className="inline-flex items-center gap-2 mt-6 text-sm font-semibold group-hover:gap-3 transition-all duration-150"
+                        style={{ color: s.stroke }}>
+                        Get in touch
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                      </a>
+                    </div>
+
+                    {/* Right — bullet points */}
+                    <div className="p-8 md:p-10 bg-surface-off flex flex-col justify-center">
+                      <p className="text-xs font-bold tracking-widest uppercase text-ink-faint mb-5">
+                        What's included
+                      </p>
+                      <ul className="flex flex-col gap-3.5">
+                        {s.points.map(pt => (
+                          <li key={pt} className="flex items-start gap-3">
+                            {/* DNV bar motif as bullet */}
+                            <div className="flex gap-0.5 mt-1.5 flex-shrink-0">
+                              <div className="w-2 h-1.5 rounded-sm bg-dnv-navy opacity-40"
+                                style={{ clipPath: "polygon(10% 0%,100% 0%,90% 100%,0% 100%)" }} />
+                              <div className="w-3 h-1.5 rounded-sm bg-dnv-sky"
+                                style={{ clipPath: "polygon(10% 0%,100% 0%,90% 100%,0% 100%)" }} />
                             </div>
-                        </div>
-                    </div>
-                </section>
-
-
-                {/* Services Grid */}
-                <section id="services-grid" className="container-custom pb-20">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {services.map((s) => (
-                            <ServiceCard key={s.title} {...s} />
+                            <span className="text-sm text-ink-muted font-light leading-snug">{pt}</span>
+                          </li>
                         ))}
+                      </ul>
                     </div>
 
-                    {/* Why Choose Us */}
-                    <div className="mt-12 grid md:grid-cols-3 gap-6 items-start">
-                        <div className="md:col-span-2">
-                            <h2 className="text-2xl font-semibold text-tribe-dark">
-                                Why DNV ARC
-                            </h2>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
 
-                            <p className="mt-3 text-slate-600">
-                                We combine deep technical experience in data & AI with a product-first delivery mindset.
-                                Our services are designed for teams who want practical, production-ready systems — backed by
-                                careful governance, observability and cost-aware architecture.
-                            </p>
-                        </div>
+        {/* ── WHY DNV ARC ── */}
+        <section className="py-20 bg-white">
+          <div className="container-custom">
+            <div className="grid md:grid-cols-2 gap-16 items-center">
+              <div>
+                <div className="section-tag">Why us</div>
+                <h2 className="section-title text-4xl mb-5">
+                  Our products are<br />our portfolio.
+                </h2>
+                <p className="text-ink-muted font-light leading-relaxed mb-4">
+                  We don't just consult on data and product engineering — we live it every day building CINEQ, Dunly, and Data Rhino. Every service we offer is something we already do for ourselves.
+                </p>
+                <p className="text-ink-muted font-light leading-relaxed mb-8">
+                  That means you get practitioners, not theorists. Engineers who care about what ships, not just what sounds good in a deck.
+                </p>
+                <Link href="/pricing" className="btn btn-navy">
+                  See pricing
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </Link>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                {[
+                  { label: "Production-ready", sub: "Built to scale and maintain from day one", dot: "#2E9EE8" },
+                  { label: "Fast delivery", sub: "MVPs in weeks, not quarters", dot: "#0D9488" },
+                  { label: "Cost-conscious", sub: "Right-sized architecture, no bloat", dot: "#D97706" },
+                  { label: "Proven stack", sub: "Next.js, Vercel, cloud-native — what we use ourselves", dot: "#5B21B6" },
+                ].map(p => (
+                  <div key={p.label} className="rounded-xl p-5 bg-surface-off border border-[rgba(11,30,79,0.07)]">
+                    {/* Bar motif */}
+                    <div className="flex gap-1 mb-3">
+                      <div className="h-0.5 w-4 rounded bg-dnv-navy opacity-40"
+                        style={{ clipPath: "polygon(8% 0%,100% 0%,92% 100%,0% 100%)" }} />
+                      <div className="h-0.5 w-7 rounded"
+                        style={{ background: p.dot, clipPath: "polygon(8% 0%,100% 0%,92% 100%,0% 100%)" }} />
                     </div>
-                </section>
+                    <p className="font-display font-bold text-sm text-dnv-navy tracking-wide mb-1">{p.label}</p>
+                    <p className="text-xs text-ink-faint font-light leading-relaxed">{p.sub}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
 
-            </main>
+        {/* ── CTA ── */}
+        <section id="contact" className="py-20 bg-dnv-navy">
+          <div className="container-custom text-center max-w-xl mx-auto">
+            <div className="flex justify-center gap-1.5 mb-8 opacity-40">
+              <div className="h-1 w-8 rounded bg-white" style={{ clipPath: "polygon(8% 0%,100% 0%,92% 100%,0% 100%)" }} />
+              <div className="h-1 w-14 rounded bg-dnv-sky" style={{ clipPath: "polygon(8% 0%,100% 0%,92% 100%,0% 100%)" }} />
+            </div>
+            <h2 className="font-display font-bold text-3xl md:text-4xl text-white mb-4 tracking-wide">
+              Ready to build?
+            </h2>
+            <p className="text-white/50 font-light mb-8 leading-relaxed">
+              Tell us about your project. We'll come back with a clear scope, timeline, and price — no fluff.
+            </p>
+            <div className="flex flex-wrap justify-center gap-3">
+              <a href="mailto:contact@dnvarc.com" className="btn btn-primary">
+                Email us directly
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </a>
+              <a href="https://wa.me/919642226262" target="_blank" className="btn btn-ghost-white">
+                WhatsApp us
+              </a>
+            </div>
+          </div>
+        </section>
 
-            {/* ✅ Global Footer */}
-            <Footer />
-        </>
-    );
+      </main>
+      <Footer />
+    </>
+  );
 }

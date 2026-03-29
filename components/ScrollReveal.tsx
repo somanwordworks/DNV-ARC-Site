@@ -3,22 +3,17 @@ import { useEffect } from "react";
 
 export default function ScrollReveal() {
   useEffect(() => {
-    const elements = document.querySelectorAll(".reveal-on-scroll");
-
-    const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.2 }
+    const els = document.querySelectorAll(".reveal");
+    const obs = new IntersectionObserver(
+      (entries) => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("visible"); obs.unobserve(e.target); } }),
+      { threshold: 0.1 }
     );
-
-    elements.forEach(el => observer.observe(el));
+    els.forEach(el => obs.observe(el));
+    // Trigger hero elements immediately
+    document.querySelectorAll(".reveal-hero").forEach((el, i) => {
+      setTimeout(() => el.classList.add("visible"), 80 + i * 120);
+    });
+    return () => obs.disconnect();
   }, []);
-
   return null;
 }

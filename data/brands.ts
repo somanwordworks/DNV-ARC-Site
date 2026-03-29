@@ -1,44 +1,82 @@
 export const BRANDS = [
-    {
-        key: "cineq",
-        title: "CINEQ",
-        href: "https://www.cineq.in/",
-        logo: "/logos/cineq.png",
-        description: "Movie analytics, box-office insights & OTT dashboards.",
-        accentClass: "bg-cineq-primary"
-    },
-    {
-        key: "datarhino",
-        title: "DATA RHINO",
-        href: "https://www.datarhino.in/",
-        logo: "/logos/data-rhino.png",
-        description: "Tech news, cloud analytics, and AI-driven insights.",
-        accentClass: "bg-datarhino-primary"
-    },
-    {
-        key: "academy",
-        title: "Noteek",
-        href: "https://www.noteek.com/",
-        logo: "/logos/noteek.png",
-        description: "Skill development & data-driven learning platform.",
-        accentClass: "bg-academy-primary"
-    },
-    {
-        key: "Privacy",
-        title: "Conteak",
-        href: "https://www.conteak.com/",
-        logo: "/logos/conteak.png",
-        description: "Some contacts need privacy.",
-        accentClass: "bg-academy-primary"
-    },
-    {
-        key: "Finance",
-        title: "Dunly",
-        href: "https://www.dunly.in/",
-        logo: "/logos/dunly.png",
-        description: "Dunly helps you track income, expenses, and savings in one simple place.",
-        accentClass: "bg-academy-primary"
-    },
-    
-  
+  {
+    key: "cineq",
+    title: "CINEQ",
+    tagline: "Cinema intelligence, redefined",
+    href: "https://www.cineq.in/",
+    logo: "/logos/cineq.png",
+    description:
+      "Box-office tracking, OTT performance dashboards, and audience analytics for the Indian film industry. Real data, actionable insights — for distributors, producers, and cinema enthusiasts.",
+    category: "Analytics · Entertainment",
+    accentBg: "#FFFFFF",
+    accentText: "#0B1E4F",
+    accentCat: "rgba(11,30,79,0.08)",
+    accentCatText: "#0B1E4F",
+    accentLink: "#2E9EE8",
+    wide: true,
+  },
+  {
+    key: "datarhino",
+    title: "Data Rhino",
+    tagline: "AI & cloud intelligence",
+    href: "https://www.datarhino.in/",
+    logo: "/logos/data-rhino.png",
+    description:
+      "Tech news, cloud analytics, and AI-driven insights for modern data teams and tech professionals who want to stay ahead.",
+    category: "AI · Cloud",
+    accentBg: "#E8F0FF",
+    accentText: "#1565C0",
+    accentCat: "rgba(21,101,192,0.12)",
+    accentCatText: "#1565C0",
+    accentLink: "#1565C0",
+    wide: false,
+  },
+  {
+    key: "dunly",
+    title: "Dunly",
+    tagline: "Privacy-first household finance",
+    href: "https://www.dunly.in/",
+    logo: "/logos/dunly.png",
+    description:
+      "Track household income, expenses, and savings — without ads, without selling your data. Built for families who care about financial clarity and privacy.",
+    category: "Finance · Privacy",
+    accentBg: "#E0F7F4",
+    accentText: "#065244",
+    accentCat: "rgba(13,148,136,0.15)",
+    accentCatText: "#0D9488",
+    accentLink: "#0D9488",
+    wide: false,
+  },
+  {
+    key: "noteek",
+    title: "Noteek",
+    tagline: "Data-driven skill development",
+    href: "https://www.noteek.com/",
+    logo: "/logos/noteek.png",
+    description:
+      "Professional courses, hands-on labs, and structured learning paths for data, AI, and cloud careers. Learn by doing.",
+    category: "Education",
+    accentBg: "#FEF3C7",
+    accentText: "#7C4A00",
+    accentCat: "rgba(217,119,6,0.15)",
+    accentCatText: "#D97706",
+    accentLink: "#D97706",
+    wide: false,
+  },
+  {
+    key: "conteak",
+    title: "Conteak",
+    tagline: "Your contacts deserve discretion",
+    href: "https://www.conteak.com/",
+    logo: "/logos/conteak.png",
+    description:
+      "A private contact manager for people who value discretion. Keep your most important connections secure, organised, and completely off the grid.",
+    category: "Privacy · Contacts",
+    accentBg: "#EDE9FE",
+    accentText: "#4c1d95",
+    accentCat: "rgba(91,33,182,0.12)",
+    accentCatText: "#5B21B6",
+    accentLink: "#5B21B6",
+    wide: true,
+  },
 ] as const;

@@ -1,271 +1,252 @@
-﻿@tailwind base;
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+
 :root {
-    --bg: #ffffff;
-    --fg: #0f172a;
+  --navy:      #0B1E4F;
+  --navy-deep: #070F2A;
+  --sky:       #2E9EE8;
+  --sky-light: #E8F4FD;
+  --off:       #F4F6FA;
+  --white:     #ffffff;
+  --ink:       #0B1E4F;
+  --ink-muted: #4A5578;
+  --ink-faint: #8E97B0;
+  --border:    rgba(11,30,79,0.10);
+  --radius:    14px;
+  --shadow:    0 2px 12px rgba(11,30,79,0.07), 0 1px 3px rgba(11,30,79,0.04);
+  --shadow-lg: 0 12px 40px rgba(11,30,79,0.13), 0 2px 8px rgba(11,30,79,0.07);
 }
 
 html, body {
-    height: 100%;
-    background: var(--bg);
-    color: var(--fg);
-    scroll-behavior: smooth;
+  height: 100%;
+  background: var(--white);
+  color: var(--ink);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
 }
 
+body {
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* ── Container ── */
 .container-custom {
-    @apply max-w-6xl mx-auto px-4;
+  @apply max-w-6xl mx-auto px-6 md:px-10;
 }
 
-/* UPDATED – Transparent bottom so arcs show */
-.hero-gradient {
-    background: linear-gradient( 180deg, #0B2850 0%, rgba(27, 75, 142, 0.6) 40%, rgba(27, 75, 142, 0.25) 70%, rgba(27, 75, 142, 0.0) 100% );
+/* ── DNV ARC Arc-bar motif (from logo) ── */
+.arc-bar {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+}
+.arc-bar-seg {
+  height: 4px;
+  border-radius: 100px;
+}
+.arc-bar-navy { background: var(--navy); width: 32px; }
+.arc-bar-sky  { background: var(--sky);  width: 48px; }
+
+/* ── Parallelogram divider (logo shape language) ── */
+.para-divider {
+  position: relative;
+  height: 5px;
+  display: flex;
+  gap: 5px;
+  margin: 16px 0;
+}
+.para-divider::before {
+  content: '';
+  display: block;
+  width: 40px; height: 5px;
+  background: var(--navy);
+  border-radius: 3px;
+  clip-path: polygon(8% 0%, 100% 0%, 92% 100%, 0% 100%);
+}
+.para-divider::after {
+  content: '';
+  display: block;
+  width: 60px; height: 5px;
+  background: var(--sky);
+  border-radius: 3px;
+  clip-path: polygon(8% 0%, 100% 0%, 92% 100%, 0% 100%);
 }
 
-.watermark {
-    position: absolute;
-    inset: 0;
-    background-image: url('/rhino-watermark.svg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 700px auto;
-    opacity: 0.08;
-    pointer-events: none;
-}
-
+/* ── Buttons ── */
 .btn {
-    @apply inline-flex items-center justify-center rounded-lg px-5 py-3 font-medium shadow-soft hover:scale-[1.02] active:scale-[0.98] transition-transform;
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-medium transition-all duration-150;
 }
-
 .btn-primary {
-    @apply bg-tribe-blue text-white;
+  background: var(--sky);
+  color: var(--white);
+  box-shadow: 0 4px 18px rgba(46,158,232,0.30);
+}
+.btn-primary:hover {
+  background: #1a8fd4;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(46,158,232,0.40);
+}
+.btn-navy {
+  background: var(--navy);
+  color: var(--white);
+}
+.btn-navy:hover {
+  background: #0e2660;
+  transform: translateY(-1px);
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--navy);
+  border: 1px solid var(--border);
+}
+.btn-ghost:hover {
+  border-color: rgba(11,30,79,0.25);
+  background: var(--off);
+}
+.btn-ghost-white {
+  background: rgba(255,255,255,0.12);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.20);
+}
+.btn-ghost-white:hover {
+  background: rgba(255,255,255,0.20);
 }
 
-.btn-outline {
-    @apply border border-tribe-blue text-tribe-blue bg-white;
+/* ── Section tag ── */
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sky);
+  margin-bottom: 12px;
+}
+.section-tag::before {
+  content: '';
+  width: 20px; height: 2px;
+  background: var(--sky);
+  border-radius: 1px;
 }
 
-/* --- Premium Background Additions --- */
-
-.hero-noise::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image: url('/noise.png');
-    opacity: 0.15;
-    mix-blend-mode: soft-light;
-    pointer-events: none;
+/* ── Section headings ── */
+.section-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+  color: var(--navy);
 }
 
-/* Floating glow orbs */
-.hero-orb {
-    position: absolute;
-    width: 420px;
-    height: 420px;
-    background: radial-gradient(circle, rgba(255,255,255,0.12), transparent 70%);
-    border-radius: 9999px;
-    filter: blur(80px);
-    animation: float 7s ease-in-out infinite alternate;
-    pointer-events: none;
+/* ── Cards ── */
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
 }
 
-    .hero-orb.orb-1 {
-        top: 10%;
-        left: 10%;
-    }
-
-    .hero-orb.orb-2 {
-        bottom: 5%;
-        right: 12%;
-        animation-delay: 2s;
-    }
-
-@keyframes float {
-    from {
-        transform: translateY(0);
-    }
-
-    to {
-        transform: translateY(-35px);
-    }
+/* ── Reveal animation ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-/* Fade and slide animations */
-@keyframes fade-in {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* ── Marquee ── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 24s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
 }
 
-@keyframes slide-up {
-    from {
-        opacity: 0;
-        transform: translateY(40px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* ── Float badge animation ── */
+@keyframes float-y {
+  from { transform: translateY(0px); }
+  to   { transform: translateY(-10px); }
 }
+.float-anim { animation: float-y 3.5s ease-in-out infinite alternate; }
+.float-anim-2 { animation: float-y 4.2s ease-in-out 1s infinite alternate; }
 
-.animate-fade-in {
-    animation: fade-in 1s ease-out both;
-}
-
-.animate-slide-up {
-    animation: slide-up 1s ease-out both;
-}
-
-/* --- Animated Arc Pulse --- */
-@keyframes arcPulse {
-    0% {
-        transform: scale(1) translateY(0);
-        opacity: 0.4;
-    }
-
-    50% {
-        transform: scale(1.05) translateY(-6px);
-        opacity: 0.9;
-    }
-
-    100% {
-        transform: scale(1) translateY(0);
-        opacity: 0.4;
-    }
-}
-
-.arc-animate {
-    animation: arcPulse 6s ease-in-out infinite;
-}
-
-.reveal-on-scroll {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
-}
-
-    .reveal-on-scroll.is-visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
-/* === Floating WhatsApp Button === */
+/* ── WhatsApp float ── */
 .whatsapp-float {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    z-index: 9999;
-    border-radius: 50%;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: fixed;
+  bottom: 24px; right: 24px;
+  z-index: 9999;
+  border-radius: 50%;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.20);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.whatsapp-float:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.28);
 }
 
-    .whatsapp-float:hover {
-        transform: translateY(-4px) scale(1.05);
-        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
-    }
-
-
-
-/* === Clientele Vertical Flip (Robust Logo Fit) === */
-
-.clientele-flip-wrapper {
-    height: 96px; /* more breathing room */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+/* ── Hero gradient ── */
+.hero-gradient {
+  background: linear-gradient(135deg, var(--navy-deep) 0%, #0d2460 50%, #112e6e 100%);
 }
 
-.clientele-flip {
-    position: relative;
-    height: 96px;
-    width: 280px; /* slightly wider for stacked logos */
+/* ── Parallelogram accent bar (logo motif) ── */
+.logo-bars {
+  display: flex; gap: 5px; align-items: center;
+}
+.logo-bar-l {
+  width: 28px; height: 5px;
+  background: var(--navy);
+  clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
+  border-radius: 2px;
+}
+.logo-bar-r {
+  width: 42px; height: 5px;
+  background: var(--sky);
+  clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
+  border-radius: 2px;
 }
 
-.clientele-flip-item {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    animation: clienteleFlip 12s infinite;
+/* ── Noise overlay ── */
+.hero-noise::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url('/noise.png');
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  pointer-events: none;
 }
 
-/* 🔑 STANDARDIZED LOGO CONTAINER */
-.clientele-logo-box {
-    width: 240px;
-    height: 72px;
-    padding: 6px 10px; /* critical for tall logos */
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* ── Stats bar ── */
+.stats-bar {
+  background: var(--navy);
 }
 
-/* 🔑 LOGO ITSELF */
-.clientele-logo-img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain; /* NEVER cover */
-    opacity: 1;
-    filter: none; /* preserve brand colors */
+/* ── Service grid ── */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
 }
-
-@keyframes clienteleFlip {
-    0% {
-        opacity: 0;
-        transform: translateY(100%);
-    }
-
-    10% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    30% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    40% {
-        opacity: 0;
-        transform: translateY(-100%);
-    }
-
-    100% {
-        opacity: 0;
-    }
+@media (max-width: 768px) {
+  .services-grid { grid-template-columns: 1fr 1fr; }
 }
-
-/* === Services Hero Single Doodle Background === */
-.services-hero {
-    position: relative;
-    overflow: hidden;
-    background-color: #ffffff;
+@media (max-width: 480px) {
+  .services-grid { grid-template-columns: 1fr; }
 }
-
-    .services-hero::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background-image: url("/backgrounds/services-doodle.png");
-        background-repeat: no-repeat; /* 🔑 stop tiling */
-        background-position: center; /* 🔑 center image */
-        background-size: 1100px; /* 🔑 single large doodle */
-        opacity: 0.12; /* dull effect */
-        pointer-events: none;
-        z-index: 0;
-    }
-
-    .services-hero > * {
-        position: relative;
-        z-index: 1;
-    }
