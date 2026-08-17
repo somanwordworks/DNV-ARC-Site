@@ -42,7 +42,7 @@ export default function Contact() {
             </p>
 
             {[
-              { icon: '✉', label: 'contact@dnvarc.com', href: 'mailto:contact@dnvarc.com' },
+              { icon: '✉', label: 'info@dnvarc.com', href: 'mailto:info@dnvarc.com' },
               { icon: '💬', label: 'WhatsApp us',        href: 'https://wa.me/919642226262' },
             ].map(({ icon, label, href }) => (
               <a
