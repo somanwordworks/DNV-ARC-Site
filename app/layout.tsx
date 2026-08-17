@@ -1,43 +1,50 @@
-import "./../styles/globals.css";
-import type { Metadata } from "next";
-import dynamic from "next/dynamic";
-import Script from "next/script";
-import ScrollReveal from "@/components/ScrollReveal";
+import type { Metadata } from 'next';
+import { Barlow_Condensed, Inter } from 'next/font/google';
+import './globals.css';
 
-const WhatsAppFloat = dynamic(() => import("@/components/WhatsAppFloat"), { ssr: false });
+const barlowCondensed = Barlow_Condensed({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700', '800'],
+  variable: '--font-barlow-condensed',
+  display: 'swap',
+});
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
-  title: "DNV ARC — Data Neural Vision",
+  title: 'DNV ARC — Data Neural Vision',
   description:
-    "DNV ARC is a group company connecting purpose-built SaaS products across cinema analytics, personal finance, and professional education.",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
+    'DNV ARC connects purpose-built SaaS products across cinema analytics, personal finance, and professional education — lightweight, affordable, and impactful.',
+  keywords: ['DNV ARC', 'Data Neural Vision', 'SaaS', 'CINEQ', 'Data Rhino', 'Noteek', 'Dunly', 'Conteak'],
+  authors: [{ name: 'DNV ARC', url: 'https://www.dnvarc.com' }],
+  openGraph: {
+    title: 'DNV ARC — Data Neural Vision',
+    description: 'Building the Arc of Modern Innovation.',
+    url: 'https://www.dnvarc.com',
+    siteName: 'DNV ARC',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'DNV ARC — Data Neural Vision',
+    description: 'Building the Arc of Modern Innovation.',
+  },
+  verification: {
+    other: {
+      'facebook-domain-verification': 'jh109bnma3kdpyquoibj6jdar6vlv2',
+    },
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap"
-          rel="stylesheet"
-        />
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
-          strategy="afterInteractive"
-        />
-        <Script id="ga-init" strategy="afterInteractive">{`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', { page_path: window.location.pathname });
-        `}</Script>
-      </head>
-      <body className="bg-white text-ink font-body">
-        <ScrollReveal />
+    <html lang="en" className={`${barlowCondensed.variable} ${inter.variable}`}>
+      <body className="bg-bg text-[#e8edf5] font-body antialiased overflow-x-hidden">
         {children}
-        <WhatsAppFloat />
       </body>
     </html>
   );
