@@ -4,12 +4,12 @@ import { useState } from 'react';
 import RevealWrapper from './RevealWrapper';
 
 const services = [
-  'Website development',
-  'AI / Data engineering',
-  'Technical book writing',
-  'eLearning curriculum',
-  'MVP development',
-  'Ghostwriting / Editing',
+  'CINEQ',
+  'Data Rhino',
+  'Noteek',
+  'Dunly',
+  'Conteak',
+  'Partnership / Investment',
   'Something else',
 ];
 
@@ -119,7 +119,7 @@ export default function Contact() {
                     value={form.service}
                     onChange={e => setForm(f => ({ ...f, service: e.target.value }))}
                   >
-                    <option value="">Select a service</option>
+                    <option value="">Select an option</option>
                     {services.map(s => <option key={s}>{s}</option>)}
                   </select>
                 </div>
