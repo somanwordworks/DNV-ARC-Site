@@ -1,70 +1,84 @@
-export default function Footer() {
-  return (
-    <footer id="contact" className="bg-white border-t border-[rgba(11,30,79,0.08)]">
-      <div className="container-custom py-14">
-        <div className="grid md:grid-cols-4 gap-10 mb-12">
+'use client';
 
-          {/* Brand col */}
-          <div className="md:col-span-2">
-            <img src="/logos/dnv-arc.png" alt="DNV ARC" className="h-16 w-auto object-contain mb-3" style={{ maxWidth: 200 }} />
-            {/* Logo bar motif */}
-            <div className="flex gap-1.5 mb-4">
-              <div className="h-1 w-8 rounded bg-dnv-navy opacity-60" style={{ clipPath: "polygon(8% 0%,100% 0%,92% 100%,0% 100%)" }} />
-              <div className="h-1 w-12 rounded bg-dnv-sky" style={{ clipPath: "polygon(8% 0%,100% 0%,92% 100%,0% 100%)" }} />
+export default function Footer() {
+  const brands = [
+    { label: 'CINEQ',      href: 'https://cineq.in/' },
+    { label: 'Data Rhino', href: 'https://datarhino.in/' },
+    { label: 'Noteek',     href: 'https://noteek.com/' },
+    { label: 'Conteak',    href: 'https://conteak.com/' },
+    { label: 'Dunly',      href: 'https://dunly.in/' },
+  ];
+  const company = [
+    { label: 'About',      href: '#about' },
+    { label: 'Ecosystem',  href: '#ecosystem' },
+    { label: 'Services',   href: '#services' },
+    { label: 'Email us',   href: 'mailto:contact@dnvarc.com' },
+    { label: 'WhatsApp',   href: 'https://wa.me/919642226262' },
+  ];
+
+  return (
+    <footer
+      className="pt-16 pb-8"
+      style={{ background: 'var(--navy)', borderTop: '1px solid rgba(42,174,224,0.15)', position: 'relative', zIndex: 1 }}
+    >
+      <div className="max-w-[1200px] mx-auto px-12">
+        <div className="grid grid-cols-[2fr_1fr_1fr] gap-16 mb-12">
+
+          {/* Brand */}
+          <div>
+            <div className="font-heading font-extrabold text-[24px] tracking-[0.12em] uppercase mb-1 text-white">
+              DNV-ARC
             </div>
-            <p className="text-sm text-ink-muted font-light leading-relaxed max-w-xs">
+            <div className="font-heading font-normal text-[11px] tracking-[0.2em] uppercase mb-4" style={{ color: 'var(--blue)' }}>
+              Data · Neural · Vision
+            </div>
+            <p className="font-body text-[14px] leading-[1.7] max-w-[280px]" style={{ color: 'rgba(255,255,255,0.45)' }}>
               A group company connecting purpose-built SaaS products across analytics, media, education, and finance.
             </p>
-            <div className="flex gap-3 mt-5">
-              <a href="mailto:contact@dnvarc.com"
-                className="text-sm text-ink-muted hover:text-dnv-navy transition-colors flex items-center gap-1.5">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                contact@dnvarc.com
-              </a>
-            </div>
           </div>
 
-          {/* Brands col */}
+          {/* Brands */}
           <div>
-            <h5 className="font-display font-bold text-sm tracking-widest uppercase text-dnv-navy mb-4">
+            <div className="font-heading font-bold text-[12px] tracking-[0.16em] uppercase mb-5" style={{ color: 'rgba(255,255,255,0.35)' }}>
               Brands
-            </h5>
-            <ul className="space-y-2.5">
-              {[
-                { label: "CINEQ", href: "https://cineq.in/", color: "#2E9EE8" },
-                { label: "Data Rhino", href: "https://datarhino.in/", color: "#1565C0" },
-                { label: "Noteek", href: "https://noteek.com/", color: "#D97706" },
-                { label: "Conteak", href: "https://conteak.com/", color: "#5B21B6" },
-                { label: "Dunly", href: "https://dunly.in/", color: "#0D9488" },
-              ].map(b => (
-                <li key={b.label}>
-                  <a href={b.href} target="_blank" rel="noopener noreferrer"
-                    className="text-sm text-ink-muted hover:text-dnv-navy transition-colors font-light flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: b.color }} />
-                    {b.label}
+            </div>
+            <ul className="flex flex-col gap-3 list-none">
+              {brands.map(({ label, href }) => (
+                <li key={label}>
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-body text-[14px] no-underline transition-colors duration-200"
+                    style={{ color: 'rgba(255,255,255,0.5)' }}
+                    onMouseEnter={e => (e.currentTarget.style.color = 'var(--blue)')}
+                    onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.5)')}
+                  >
+                    {label}
                   </a>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Company col */}
+          {/* Company */}
           <div>
-            <h5 className="font-display font-bold text-sm tracking-widest uppercase text-dnv-navy mb-4">
+            <div className="font-heading font-bold text-[12px] tracking-[0.16em] uppercase mb-5" style={{ color: 'rgba(255,255,255,0.35)' }}>
               Company
-            </h5>
-            <ul className="space-y-2.5">
-              {[
-                { label: "About", href: "/#about" },
-                { label: "Ecosystem", href: "/#ecosystem" },
-                { label: "Services", href: "/services" },
-                { label: "Pricing", href: "/pricing" },
-                { label: "WhatsApp", href: "https://wa.me/919642226262" },
-              ].map(l => (
-                <li key={l.label}>
-                  <a href={l.href}
-                    className="text-sm text-ink-muted hover:text-dnv-navy transition-colors font-light">
-                    {l.label}
+            </div>
+            <ul className="flex flex-col gap-3 list-none">
+              {company.map(({ label, href }) => (
+                <li key={label}>
+                  <a
+                    href={href}
+                    target={href.startsWith('http') ? '_blank' : undefined}
+                    rel="noopener noreferrer"
+                    className="font-body text-[14px] no-underline transition-colors duration-200"
+                    style={{ color: 'rgba(255,255,255,0.5)' }}
+                    onMouseEnter={e => (e.currentTarget.style.color = 'var(--blue)')}
+                    onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.5)')}
+                  >
+                    {label}
                   </a>
                 </li>
               ))}
@@ -73,13 +87,14 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="pt-6 border-t border-[rgba(11,30,79,0.08)] flex flex-wrap items-center justify-between gap-4">
-          <p className="text-xs text-ink-faint">
-            © {new Date().getFullYear()} DNV ARC — Data Neural Vision. All rights reserved.
-          </p>
-          <div className="flex items-center gap-2 text-xs text-ink-faint">
-            <span className="w-1.5 h-1.5 rounded-full bg-dnv-sky" />
-            5 products actively maintained
+        <div
+          className="flex justify-between items-center pt-8 font-body text-[13px]"
+          style={{ borderTop: '1px solid rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.3)' }}
+        >
+          <span>© 2026 DNV ARC — Data Neural Vision. All rights reserved.</span>
+          <div className="flex items-center gap-2">
+            <span className="status-dot" />
+            <span>5 products actively maintained</span>
           </div>
         </div>
       </div>
