@@ -12,7 +12,7 @@ export default function Footer() {
     { label: 'About',      href: '#about' },
     { label: 'Ecosystem',  href: '#ecosystem' },
     { label: 'Services',   href: '#services' },
-    { label: 'Email us',   href: 'mailto:contact@dnvarc.com' },
+    { label: 'Email us',   href: 'mailto:info@dnvarc.com' },
     { label: 'WhatsApp',   href: 'https://wa.me/919642226262' },
   ];
 
