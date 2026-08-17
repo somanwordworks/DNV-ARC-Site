@@ -29,7 +29,7 @@ export default function ContactForm() {
         defaultValue=""
       >
         <option value="" disabled>I'm interested in…</option>
-        {["Website development","AI / Data engineering","Technical book writing","eLearning curriculum","MVP development","Ghostwriting / Editing","Something else"].map(o => (
+        {["CINEQ","Data Rhino","Noteek","Dunly","Conteak","Partnership / Investment","Something else"].map(o => (
           <option key={o} style={{ color: "#0B1E4F", background: "white" }}>{o}</option>
         ))}
       </select>
