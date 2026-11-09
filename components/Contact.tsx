@@ -3,153 +3,129 @@
 import { useState } from 'react';
 import RevealWrapper from './RevealWrapper';
 
-const services = [
-  'CINEQ',
-  'Data Rhino',
-  'Noteek',
-  'Dunly',
-  'Conteak',
-  'Partnership / Investment',
-  'Something else',
-];
+const INTERESTS = ['CINEQ', 'Data Rhino', 'Noteek', 'Dunly', 'Conteak', 'Partnership / Investment', 'Something else'];
+
+type State = 'idle' | 'sending' | 'sent' | 'fallback' | 'error';
 
 export default function Contact() {
-  const [submitted, setSubmitted] = useState(false);
-  const [form, setForm] = useState({ name: '', email: '', service: '', message: '' });
+  const [state, setState] = useState<State>('idle');
+  const [form, setForm] = useState({ name: '', email: '', interest: '', message: '', company: '' });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const mailto = () =>
+    `mailto:info@dnvarc.com?subject=${encodeURIComponent(`Enquiry from ${form.name}`)}&body=${encodeURIComponent(
+      `${form.message}\n\nInterested in: ${form.interest || 'n/a'}\nFrom: ${form.name} (${form.email})`,
+    )}`;
+
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setState('sending');
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      if (res.ok) setState('sent');
+      else if (res.status === 503) setState('fallback'); // server not configured: tell the truth, offer email
+      else setState('error');
+    } catch {
+      setState('error');
+    }
   };
 
+  const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
+    setForm((f) => ({ ...f, [k]: e.target.value }));
+
   return (
-    <section
-      id="contact"
-      className="py-28"
-      style={{ background: 'var(--bg2)', borderTop: '1px solid var(--border)', position: 'relative', zIndex: 1 }}
-    >
-      <div className="max-w-[1200px] mx-auto px-12">
-        <div className="grid grid-cols-2 gap-20 items-start">
+    <section id="contact" className="section section-alt">
+      <div className="wrap relative grid md:grid-cols-2 gap-14 md:gap-20 items-start">
+        <RevealWrapper>
+          <div className="mono-label mb-5">Contact</div>
+          <h2 className="display" style={{ fontSize: 'clamp(26px, 4vw, 52px)', maxWidth: '14ch' }}>
+            Talk to the team behind the products.
+          </h2>
+          <p className="mt-6" style={{ color: 'var(--muted)', lineHeight: 1.75, fontSize: 17, maxWidth: 440 }}>
+            Partnerships, investment, press, or a question about one of our products. We reply within 24 hours.
+          </p>
 
-          {/* Left */}
-          <RevealWrapper>
-            <div className="section-label">Contact</div>
-            <h2 className="font-heading font-extrabold text-[clamp(36px,4.5vw,58px)] tracking-[0.04em] uppercase max-w-xl leading-[1.05] mb-4">
-              Let's build something together.
-            </h2>
-            <p className="font-body text-[16px] leading-[1.7] mb-12" style={{ color: 'var(--muted)' }}>
-              Got a project in mind? Tell us about it and we'll get back within 24 hours.
-            </p>
-
+          <div className="mt-10 flex flex-col gap-4">
             {[
-              { icon: '✉', label: 'info@dnvarc.com', href: 'mailto:info@dnvarc.com' },
-              { icon: '💬', label: 'WhatsApp us',        href: 'https://wa.me/919642226262' },
-            ].map(({ icon, label, href }) => (
+              { label: 'info@dnvarc.com', href: 'mailto:info@dnvarc.com', icon: '✉' },
+              { label: 'WhatsApp us', href: 'https://wa.me/919642226262', icon: '💬' },
+            ].map(({ label, href, icon }) => (
               <a
                 key={label}
                 href={href}
                 target={href.startsWith('http') ? '_blank' : undefined}
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 mb-4 no-underline font-body text-[15px] transition-colors duration-200"
-                style={{ color: 'var(--text)' }}
-                onMouseEnter={e => (e.currentTarget.style.color = 'var(--blue)')}
-                onMouseLeave={e => (e.currentTarget.style.color = 'var(--text)')}
+                className="flex items-center gap-4 no-underline"
+                style={{ color: 'var(--text)', fontSize: 16 }}
               >
-                <span
-                  className="w-9 h-9 rounded-lg flex items-center justify-center text-base"
-                  style={{ background: 'var(--bg3)', border: '1px solid var(--border)' }}
-                >
+                <span className="w-11 h-11 rounded-xl flex items-center justify-center" style={{ background: 'var(--panel)', border: '1px solid var(--line)' }}>
                   {icon}
                 </span>
                 {label}
               </a>
             ))}
+          </div>
 
-            <div
-              className="mt-12 p-6 rounded-xl"
-              style={{ background: 'rgba(22,32,80,0.4)', border: '1px solid var(--border)' }}
-            >
-              <div className="font-heading font-semibold text-[11px] tracking-[0.14em] uppercase mb-3" style={{ color: 'var(--blue)' }}>
-                Response time
-              </div>
-              <div className="font-heading font-extrabold text-[28px] tracking-[0.04em] uppercase" style={{ color: 'var(--text)' }}>
-                Within 24 Hours
-              </div>
-              <div className="font-body text-[13px] mt-1" style={{ color: 'var(--muted)' }}>
-                Mon–Sat · India Standard Time
-              </div>
+          <div className="mt-10 card p-6 inline-block">
+            <div className="mono-label mb-2">Response time</div>
+            <div className="display" style={{ fontSize: 22 }}>Within 24 hours</div>
+            <div className="mt-1" style={{ color: 'var(--muted)', fontSize: 13 }}>Mon to Sat, India Standard Time</div>
+          </div>
+        </RevealWrapper>
+
+        <RevealWrapper delay={120}>
+          {state === 'sent' ? (
+            <div className="card p-10 text-center" role="status">
+              <div className="display" style={{ fontSize: 24 }}>Got it.</div>
+              <p className="mt-3" style={{ color: 'var(--muted)' }}>We reply within 24 hours.</p>
             </div>
-          </RevealWrapper>
+          ) : state === 'fallback' ? (
+            <div className="card p-10" role="status">
+              <div className="display" style={{ fontSize: 20 }}>One more click.</div>
+              <p className="mt-3 mb-6" style={{ color: 'var(--muted)', lineHeight: 1.7 }}>
+                Our form could not send this message just now. Your email app will open with it ready to send.
+              </p>
+              <a href={mailto()} className="btn-primary">Open email →</a>
+            </div>
+          ) : (
+            <form onSubmit={submit} className="flex flex-col gap-5" noValidate={false}>
+              {/* Honeypot, hidden from people */}
+              <input type="text" tabIndex={-1} autoComplete="off" aria-hidden value={form.company} onChange={set('company')} style={{ position: 'absolute', left: '-9999px', opacity: 0 }} />
 
-          {/* Right: form */}
-          <RevealWrapper delay={100}>
-            {submitted ? (
-              <div className="text-center py-16">
-                <div className="text-5xl mb-4">✅</div>
-                <h3 className="font-heading font-extrabold text-[28px] tracking-[0.04em] uppercase mb-2">Message Sent!</h3>
-                <p className="font-body text-[15px]" style={{ color: 'var(--muted)' }}>We'll get back to you within 24 hours.</p>
+              <div>
+                <label htmlFor="c-name" className="mono-label block mb-2" style={{ color: 'var(--muted)' }}>Your name</label>
+                <input id="c-name" className="form-input" type="text" required placeholder="Jane Doe" value={form.name} onChange={set('name')} />
               </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-                {[
-                  { label: 'Your name',     key: 'name',    type: 'text',  placeholder: 'Jane Doe' },
-                  { label: 'Email address', key: 'email',   type: 'email', placeholder: 'jane@company.com' },
-                ].map(({ label, key, type, placeholder }) => (
-                  <div key={key}>
-                    <label className="block font-heading font-bold text-[12px] tracking-[0.14em] uppercase mb-2" style={{ color: 'var(--muted)' }}>
-                      {label}
-                    </label>
-                    <input
-                      type={type}
-                      placeholder={placeholder}
-                      required
-                      className="form-input"
-                      value={form[key as keyof typeof form]}
-                      onChange={e => setForm(f => ({ ...f, [key]: e.target.value }))}
-                    />
-                  </div>
-                ))}
+              <div>
+                <label htmlFor="c-email" className="mono-label block mb-2" style={{ color: 'var(--muted)' }}>Email address</label>
+                <input id="c-email" className="form-input" type="email" required placeholder="jane@company.com" value={form.email} onChange={set('email')} />
+              </div>
+              <div>
+                <label htmlFor="c-int" className="mono-label block mb-2" style={{ color: 'var(--muted)' }}>I&apos;m interested in</label>
+                <select id="c-int" className="form-input" value={form.interest} onChange={set('interest')}>
+                  <option value="">Select an option</option>
+                  {INTERESTS.map((s) => <option key={s}>{s}</option>)}
+                </select>
+              </div>
+              <div>
+                <label htmlFor="c-msg" className="mono-label block mb-2" style={{ color: 'var(--muted)' }}>Message</label>
+                <textarea id="c-msg" className="form-input" placeholder="How can we help?"value={form.message} onChange={set('message')} />
+              </div>
 
-                <div>
-                  <label className="block font-heading font-bold text-[12px] tracking-[0.14em] uppercase mb-2" style={{ color: 'var(--muted)' }}>
-                    I'm interested in…
-                  </label>
-                  <select
-                    className="form-input"
-                    value={form.service}
-                    onChange={e => setForm(f => ({ ...f, service: e.target.value }))}
-                  >
-                    <option value="">Select an option</option>
-                    {services.map(s => <option key={s}>{s}</option>)}
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block font-heading font-bold text-[12px] tracking-[0.14em] uppercase mb-2" style={{ color: 'var(--muted)' }}>
-                    Message
-                  </label>
-                  <textarea
-                    className="form-input"
-                    placeholder="Tell us about your project…"
-                    value={form.message}
-                    onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full flex justify-center items-center gap-2 py-3.5 rounded-md font-heading font-bold text-[15px] tracking-[0.12em] uppercase text-white transition-all duration-200"
-                  style={{ background: 'var(--blue)', boxShadow: '0 0 32px rgba(42,174,224,0.25)' }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'; (e.currentTarget as HTMLElement).style.boxShadow = '0 0 50px rgba(42,174,224,0.4)'; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';    (e.currentTarget as HTMLElement).style.boxShadow = '0 0 32px rgba(42,174,224,0.25)'; }}
-                >
-                  Send message →
-                </button>
-              </form>
-            )}
-          </RevealWrapper>
-
-        </div>
+              <button type="submit" className="btn-primary justify-center" disabled={state === 'sending'} style={{ opacity: state === 'sending' ? 0.7 : 1 }}>
+                {state === 'sending' ? 'Sending…' : 'Send message →'}
+              </button>
+              {state === 'error' && (
+                <p role="alert" style={{ color: 'var(--danger, #ff9b9b)', fontSize: 14 }}>
+                  Something went wrong. Please try again, or write to info@dnvarc.com.
+                </p>
+              )}
+            </form>
+          )}
+        </RevealWrapper>
       </div>
     </section>
   );
